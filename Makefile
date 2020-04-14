@@ -27,4 +27,7 @@ clean:
 
 # prints out the makefile target objectives
 help:
-	@echo 'make (all)     : builds the server and client executable, along with generating a pdf version of the man pages'
+	@echo 'make (pingCLI) : builds the project, creating the pingCLI executable'
+	@echo 'make main.o    : compiles main.cpp into its respective object (.o) file'
+	@echo 'make clean     : removes the .o and executable files from the source directory'
+	@echo 'make help      : prints out further information about the makefile targets available to use'
