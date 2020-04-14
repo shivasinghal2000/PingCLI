@@ -1,7 +1,8 @@
 # Rutvik Patel
+# PingCLI
 
 # This makefile allows the user to link, compile and clean the files
-# necessary to run the package
+# necessary to run the project
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 CC = g++ # compiler of choice

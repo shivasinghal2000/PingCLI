@@ -27,13 +27,16 @@ The 3 output fields are described in further detail below:
 * `packet loss`: This is shown as a percentage, and represents the number of packets lost in the communication.
 
 ## Miscellaneous
+### Extra Credit
+Addressing the extra credit points provided in the [challenge description](https://github.com/cloudflare-internship-2020/internship-application-systems/blob/master/README.md), this implementation allows for the **TTL** to be received as an argument and reports the resulting ICMP message. If given more time, and under better circumstances, the project would be fleshed out further and further support would be provided to valuable features.
+
 ### Makefile Targets
 The project includes its own Makefile, which is used to compile and link all the object (.o) files. The targets of the Makefile can be displayed in the command line by using the command
 ```
 $ make help
 ```
 Furthermore, the target descriptions can be found below:
-* make (pingCLI) : builds the project, creating the pingCLI executable
-* make main.o    : compiles main.cpp into its respective object (.o) file
-* make clean     : removes the .o and executable files from the source directory
-* make help      : prints out further information about the makefile targets available to use
+* make (**pingCLI**) : builds the project, creating the pingCLI executable
+* make **main.o**    : compiles main.cpp into its respective object (.o) file
+* make **clean**     : removes the .o and executable files from the source directory
+* make **help**      : prints out further information about the makefile targets available to use
