@@ -18,10 +18,6 @@ pingCLI: $(OBJS)
 main.o: main.cpp util.h
 	$(CC) -c -std=c++11 main.cpp -w
 
-# compresses and creates a tar file
-tar:
-	tar -cvf pingCLI.tar.gz $(FILES) pingCLI/
-
 # removes the .o and executable files from the source directory
 clean:
 	@rm -f *.o $(EXEC)
