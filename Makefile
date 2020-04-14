@@ -7,8 +7,8 @@
 
 CC = g++ # compiler of choice
 OBJS = main.o # object files to be generated
-FILES = main.cpp util.h Makefile
-EXEC = pingCLI
+FILES = main.cpp util.h Makefile # all project files
+EXEC = pingCLI # executable to be generated
 
 # builds the project
 pingCLI: $(OBJS)
