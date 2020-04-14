@@ -1,7 +1,5 @@
 #include "util.h"
 
-
-
 int main(int argc, char*argv[]) {
     int ttl = 255;  // ttl defaults to 255
 
