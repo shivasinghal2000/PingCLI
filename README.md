@@ -1,5 +1,5 @@
  # PingCLI
- This is a command line interface made for **linux**, and for review by the Cloudflare team. This application sends repeated **ICMP echo requests** to the specified host/IP-address, while receiving proper *acknowledgement* (echo reply) messages.
+ This is a command line interface made for **Linux**, and for review by the Cloudflare team. This application sends repeated **ICMP echo requests** to the specified host/IP-address, while receiving proper *acknowledgement* (echo reply) messages.
 
  ## Running Instructions
  To build the project, simply navigate to the correct (source) directory in terminal, and run the following command:
