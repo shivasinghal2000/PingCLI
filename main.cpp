@@ -1,47 +1,10 @@
 #include "util.h"
 
-/*
-The readLine function is responsible for reading in a line from stdin
-    Parameters:
-    Returns:
-        char *inputLine : the line read in from stdin
-*/
-char *readLine() {
-    char *inputLine = NULL;
-    size_t bufferSize = BUFFER_SIZE;  // getLine allocates buffer size automatically
-    getline(&inputLine, &bufferSize, stdin);
-    return inputLine;
-}
 
-/*
-The splitLine function is responsible for splitting the specified line by the delimiters
-    Parameters:
-        char *line: the line read in from stdin
-    Returns:
-        char **tokens: the tokens split by the delimiters
-*/
-char **splitLine(char *line) {
-    int tokenBufferSize = TOKEN_BUFFER_SIZE;
-    char *delims = " \t\r\n\a";  // delimiters of choices
-    char **tokens = (char**)malloc(tokenBufferSize * sizeof(char*));
-    char *tok = strtok(line, delims);
-    int pos = 0;
-    
-    while (tok != NULL) {
-        tokens[pos] = tok;
-        pos++;
-        if (pos >= tokenBufferSize) {
-            tokenBufferSize += TOKEN_BUFFER_SIZE;
-            tokens = (char**)realloc(tokens, tokenBufferSize * sizeof(char*));
-        }
-        tok = strtok(NULL, delims);
-    }
-    tokens[pos] = NULL;
-    return tokens;    
-}
 
 int main(int argc, char*argv[]) {
-    int ttl = 255;
+    int ttl = 255;  // ttl defaults to 255
+
     // input error handling
     if (argc != 2 && argc != 3) {
         cout << "please follow the correct input format.\n" << 
@@ -49,19 +12,21 @@ int main(int argc, char*argv[]) {
         return 0;
     }
 
+    // check to see if a ttl was passed in
     if (argc == 3) {
         if (isNumber(argv[2])) {
             ttl = atoi(argv[2]);
             if (debug) {
                 printf("ttl: %d\n", ttl);
             }
+        } else {
+            // if the ttl parameter is not a number, terminate the program
+            printf("invalid ttl entered. terminating.\n");
+            return 0;
         }
     }
 
-
-
-    // int portNum = atoi(argv[1]);  // set the port number
-    string destination(argv[1]);
+    string destination(argv[1]);  // set the destination (hostname/ip) to the first parameter passed in
 
     if (debug) {
         cout << "input read in: '" << destination << "'" << endl;
@@ -77,21 +42,20 @@ int main(int argc, char*argv[]) {
         }
     }
     
-    string command = "ping -D -t " + to_string(ttl) + " " + destination;
+    string command = "ping -D -t " + to_string(ttl) + " " + destination;  // the ping command to pipe
 
     if (debug) {
         printf("the command to be run: %s\n", command.c_str());
     }
 
     FILE *p;
-    char *psLine = NULL;
+    char *pLine = NULL;  // line array
     size_t bufferSize = BUFFER_SIZE;  // getLine allocates buffer size automatically
     int tokenBufferSize = TOKEN_BUFFER_SIZE;
     char **pToks = (char**) malloc(tokenBufferSize * sizeof(char*));  // token array
- 
-    // pipe the ps command
-    float prevTime = 0.000;
     int msgNum = 0;
+    signal(SIGINT, signal_handler);
+    // pipe the command
     if ((p = popen(command.c_str(), "r")) == NULL) {
         // error in opening the pipe
         printf("pipe could not be opened\n");
@@ -100,39 +64,25 @@ int main(int argc, char*argv[]) {
         printf("starting to send echo requests\n");
         int lineCount = 0;
         // while lines are available to be read...
-        while (getline(&psLine, &bufferSize, p)) {
-           lineCount++;
-           // ignore the first line
-           if (lineCount == 1) {
-               continue;
-           }
-           pToks = splitLine(psLine);  // split the line by the delimiters, saving the tokens
-           string msgTime(pToks[7]);
+        while (getline(&pLine, &bufferSize, p)) {
+            lineCount++;
+            // ignore the first line
+            if (lineCount == 1) {
+                continue;
+            }
+            pToks = splitLine(pLine);  // split the line by the delimiters, saving the tokens
+            string msgTime(pToks[7]);  // get the message rtt
 
+            // if there was a "Time to live exceeded" message, print a custom message
             if (msgTime.size() == 4) {
                 printf("message # %d\t Time to live exceeded\t100%% packet loss\n", msgNum++);
             } else {
-
-
-                msgTime = msgTime.substr(5);
-
-                float newTime = abs(stof(msgTime) - prevTime);
-                prevTime = stof(msgTime);
-
-                    // if the pid is found
-                    // if (!strcmp(pid, psToks[0])) {
-                    //     return true;
-                    // } else {
-                    //     // pid is not a match, continue to the next line
-                    //     continue;
-                    // }
-
-                    printf("request # %d:\tRTT time = %.3f ms\t0%% packet loss\n", msgNum++, newTime);
-                    
-                    // printf("%s\n", msgTime.c_str());
+                msgTime = msgTime.substr(5);  // get the time (in ms)
+                printf("request # %d:\tRTT time = %.3f ms\t0%% packet loss\n", msgNum++, stof(msgTime));
             }
             continue;
         }
+        // close the pipe
         if (pclose(p)) {
             // error closing the pipe
             printf("pipe could not close\n");

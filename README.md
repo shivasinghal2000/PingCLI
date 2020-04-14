@@ -1,5 +1,5 @@
  # PingCLI
- This is a command line interface made for **Linux**, and for review by the Cloudflare team. This application sends repeated **ICMP echo requests** to the specified host/IP-address, while receiving proper *acknowledgement* (echo reply) messages.
+ This is a command line interface made for review by the Cloudflare team. This application runs on **Linux** sends repeated **ICMP echo requests** to the specified host/IP-address, while receiving proper *acknowledgement* (echo reply) messages.
 
  ## Running Instructions
  To build the project, simply navigate to the correct (source) directory in terminal, and run the following command:
@@ -8,7 +8,7 @@
  ```
  After the project is successfully built, follow the following syntax to run the executable:
  ```
- $ ./pingCLI <hostname / IP-address> <ttl>*
+ $ ./pingCLI <hostname / IP-address> <ttl>?
  ```
  The input parameters are described in more detail below:
  
@@ -25,6 +25,10 @@ The 3 output fields are described in further detail below:
 * `request number`: An integer that simply increments and keeps a track of the number of requests sent
 * `RTT time`: This represents the **round trip time**, which is the time it takes for the request to be sent and proper acknowledgement reception.
 * `packet loss`: This is shown as a percentage, and represents the number of packets lost in the communication.
+
+## Program Termination
+This application is designed to send ICMP "echo requests" in an **infinite** loop. This means that termination requires the user to send the *SIGINT* signal (ctrl + c) to the program to stop sending requests.
+
 
 ## Miscellaneous
 ### Extra Credit
