@@ -18,7 +18,7 @@
 The program will start running and send repeated echo requests.
 
 ## Program Output
-After starting the program, assuming all parameters are entered correctly, the program writes to stdout upon reception of the acknowledgement/"echo reply" message. The following format is followed:
+After starting the program, assuming all parameters are entered correctly, the program writes to stdout upon reception of the acknowledgement/"echo reply" message. The output can be found in the following format:
 ```
 request # <request number>:    RTT time = <time in ms>    <percentage> packet loss
 ```
@@ -32,6 +32,9 @@ This application is designed to send ICMP "echo requests" in an **infinite** loo
 
 
 ## Miscellaneous
+### Debugging
+The program supports a debugging mode. In this mode, the program simply outputs (to stdout) debugging information as it is being executed. To enable this mode, simply set the **debug flag** (found in util.h, line 34) to **true**. To disable this mode, set it back to **false**.
+
 ### Extra Credit
 Addressing the extra credit points provided in the [challenge description](https://github.com/cloudflare-internship-2020/internship-application-systems/blob/master/README.md), this implementation allows for the **TTL** to be received as an argument and reports the resulting ICMP message. If given more time, and under better circumstances, the project would be fleshed out further and support would be provided to valuable features.
 
