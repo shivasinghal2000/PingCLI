@@ -28,7 +28,7 @@ The 3 output fields are described in further detail below:
 
 ## Miscellaneous
 ### Extra Credit
-Addressing the extra credit points provided in the [challenge description](https://github.com/cloudflare-internship-2020/internship-application-systems/blob/master/README.md), this implementation allows for the **TTL** to be received as an argument and reports the resulting ICMP message. If given more time, and under better circumstances, the project would be fleshed out further and further support would be provided to valuable features.
+Addressing the extra credit points provided in the [challenge description](https://github.com/cloudflare-internship-2020/internship-application-systems/blob/master/README.md), this implementation allows for the **TTL** to be received as an argument and reports the resulting ICMP message. If given more time, and under better circumstances, the project would be fleshed out further and support would be provided to valuable features.
 
 ### Makefile Targets
 The project includes its own Makefile, which is used to compile and link all the object (.o) files. The targets of the Makefile can be displayed in the command line by using the command
