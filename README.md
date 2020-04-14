@@ -6,18 +6,19 @@
  ```
  $ make
  ```
- After the project is successfully built, follow the following syntax to run the executable:
+ After the project is successfully built, use the following syntax to run the executable:
  ```
- $ ./pingCLI <hostname / IP-address> <ttl>?
+ $ ./pingCLI <hostname/IP-address> <ttl>?
  ```
  The input parameters are described in more detail below:
  
- `hostname/IP-address`: a valid hostname **or** IP-address
+ * `hostname/IP-address`: a valid hostname **or** IP-address
 
- `ttl` : The **time-to-live** for the ping. This field is **optional** and should be an integer value between **1** and **255**. If left empty, the ttl defaults to 255.
+ * `ttl` : The **time-to-live** for the ping. This field is **optional** and should be an integer value between **1** and **255**. If left empty, the ttl defaults to 255.
+The program will start running and send repeated echo requests.
 
 ## Program Output
-After starting the program, assuming all parameters are entered correctly, the program writes to stdout. The following format is followed:
+After starting the program, assuming all parameters are entered correctly, the program writes to stdout upon reception of the acknowledgement/"echo reply" message. The following format is followed:
 ```
 request # <request number>:    RTT time = <time in ms>    <percentage> packet loss
 ```
